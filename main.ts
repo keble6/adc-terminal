@@ -1,3 +1,4 @@
+// Get data from logger microbit, relay to terminal
 radio.onReceivedString(function (receivedString) {
     // Send only completed messages (i.e. does not end in comma)
     if (receivedString.charAt(receivedString.length - 1).compare(",") == 0) {
@@ -8,6 +9,7 @@ radio.onReceivedString(function (receivedString) {
         outString = ""
     }
 })
+// Get command from terminal, relay to logger microbit
 serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     serialString = serial.readUntil(serial.delimiters(Delimiters.NewLine))
     radio.sendString(serialString)
