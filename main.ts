@@ -5,7 +5,7 @@ radio.onReceivedString(function (receivedString) {
         outString = receivedString
     } else if (receivedString.charAt(0).compare("r") == 0) {
         // This is read time data string
-        serial.writeLine(receivedString)
+        serial.writeLine(receivedString.substr(1, receivedString.length - 2))
     }
 })
 // Expect 4 name/value pairs
