@@ -3,6 +3,9 @@ radio.onReceivedString(function (receivedString) {
     // String ends in comma, so add to outString
     if (receivedString.charAt(receivedString.length - 1).compare(",") == 0) {
         outString = receivedString
+    } else if (receivedString.charAt(0).compare("r") == 0) {
+        // This is read time data string
+        serial.writeLine(receivedString)
     }
 })
 // Expect 4 name/value pairs
