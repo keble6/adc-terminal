@@ -1,12 +1,19 @@
 // Get data from logger microbit, relay to terminal
 radio.onReceivedString(function (receivedString) {
-    // Send only completed messages (i.e. does not end in comma)
+    // String ends in comma, so add to outString
     if (receivedString.charAt(receivedString.length - 1).compare(",") == 0) {
-        outString = "" + outString + receivedString
-    } else {
-        outString = "" + outString + receivedString
+        outString = receivedString
+    }
+})
+// Expect 4 name/value pairs
+radio.onReceivedValue(function (name, value) {
+    // V3 is the last data message, so send it to Serial
+    if (name.compare("V3") == 0) {
+        outString = "" + outString + value
         serial.writeLine(outString)
         outString = ""
+    } else {
+        outString = "" + outString + value + ","
     }
 })
 // Get command from terminal, relay to logger microbit
